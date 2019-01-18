@@ -1,3 +1,5 @@
+### 🚧 DEVELOPMENT STILL IN PROGRESS! ⚠️
+
 # SWR VOX BI Connector
 ## ATI Mapping for Alexa and Google Home
 
@@ -15,6 +17,10 @@ For an example based on our Google Action see [example/analyticsObject.md](examp
 # Configuration: swr-bi
 
 Create _stationConfig.js_, _yLoggerConfig.js_ plus _config.js_ from its _-example_ dummys and start making changes. These file will not be committed
+
+To deploy run either `npm run alexa` or `npm run google` in your CLI. These commands can be adjusted in [package.json](package.json) but this configuration has been proven rather reliable so far.
+
+
 
 **DEV MORE TO COME**
 
