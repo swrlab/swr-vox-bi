@@ -1,0 +1,29 @@
+{
+	"name": "swr-voice-bi",
+	"version": "0.9.1",
+	"description": "Unified endpoint for Voice apps analytics requests",
+	"main": "index.js",
+	"author": "Daniel Freytag <daniel@frytg.com>",
+	"repository": {
+	    "type": "git",
+	    "url": "https://github.com/frytg/swr-vox-bi.git"
+  	},
+	"homepage": "https://github.com/frytg/swr-vox-bi",
+	"scripts": {
+		"alexa": "gcloud beta functions deploy swrBiAlexaV1 --env-vars-file stationConfig.yaml --project swr-lab --timeout 11 --memory 256MB --runtime nodejs8 --trigger-http --region europe-west1",
+		"google": "gcloud beta functions deploy swrBiGoogleHomeV1 --env-vars-file stationConfig.yaml --project swr-lab --timeout 11 --memory 256MB --runtime nodejs8 --trigger-http --region europe-west1"
+	},
+	"license": "MIT",
+	"private": true,
+	"dependencies": {
+		"request": "2.85.0",
+		"ystring": "^0.9.5",
+		"os": "0.1.1",
+		"body-parser": "1.18.3",
+	    "dateformat": "3.0.3",
+	    "express": "4.16.3",
+		"query-string": "6.2.0",
+		"node-fetch": "2.2.0",
+		"ylogger": ">=1.0.0"
+	}
+}
