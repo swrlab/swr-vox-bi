@@ -1,4 +1,4 @@
-## Demo Script for analytics ins Google Actions
+## Demo Script for analytics in Google Actions
 ```
 // Building analytics object with request.body data
 var intentSlotsTemp = [];
@@ -40,7 +40,7 @@ analyticsObject.intentSlotsFilled 	= analyticsObject.intentSlotsFilled == null ?
 handleAnalytics(agent, conv, analyticsObject);
 ```
 
-## These POST options are required 
+## These POST options are required
 ```
 accessToken
 voiceAppName		{ swr1 }
@@ -49,9 +49,9 @@ voiceAppVersion		{ 03 }
 userId
 sessionId
 deviceId
-intentType 			{ LaunchRequest, IntentRequest, AudioPlayer.* }
-intentName 			{ TrafficIntent, ... }
-intentSlotsFilled 	{ true, false }
-intentSlots 		{ chill out, BAB 5, BSTR 10 }
+intentType			{ LaunchRequest, IntentRequest, AudioPlayer.* }
+intentName			{ TrafficIntent, ... }
+intentSlotsFilled	{ true, false }
+intentSlots			{ chill out, BAB 5, BSTR 10 }
 intentAudio
 ```
