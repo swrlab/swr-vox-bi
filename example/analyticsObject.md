@@ -7,11 +7,11 @@ var analyticsObject = {
 	voiceAppName:		STATION,
 	voiceAppRegion:		null,
 	voiceAppVersion:	'1',
-	userId:				request.body.originalDetectIntentRequest.payload.user.userId,
-	sessionId:			request.body.session,
-	deviceId:			'google-home_' + request.body.originalDetectIntentRequest.payload.user.locale,
-	intentType:			null,
-	intentName:			request.body.queryResult.intent.displayName,
+	userId:			request.body.originalDetectIntentRequest.payload.user.userId,
+	sessionId:		request.body.session,
+	deviceId:		'google-home_' + request.body.originalDetectIntentRequest.payload.user.locale,
+	intentType:		null,
+	intentName:		request.body.queryResult.intent.displayName,
 	intentSlotsFilled:	request.body.queryResult.allRequiredParamsPresent,
 }
 
@@ -49,9 +49,9 @@ voiceAppVersion		{ 03 }
 userId
 sessionId
 deviceId
-intentType			{ LaunchRequest, IntentRequest, AudioPlayer.* }
-intentName			{ TrafficIntent, ... }
+intentType		{ LaunchRequest, IntentRequest, AudioPlayer.* }
+intentName		{ TrafficIntent, ... }
 intentSlotsFilled	{ true, false }
-intentSlots			{ chill out, BAB 5, BSTR 10 }
+intentSlots		{ chill out, BAB 5, BSTR 10 }
 intentAudio
 ```
