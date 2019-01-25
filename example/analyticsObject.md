@@ -1,3 +1,4 @@
+## Demo Script for analytics ins Google Actions
 ```
 // Building analytics object with request.body data
 var intentSlotsTemp = [];
@@ -34,11 +35,12 @@ analyticsObject.intentSlots			= intentSlotsTemp.length > 0 ? intentSlotsTemp.joi
 analyticsObject.intentSlotsFilled 	= analyticsObject.intentSlotsFilled == null ? false 		: true
 ```
 
+## Then hand over `analyticsObject` to `handleAnalytics` which makes a POST request to cloudfunctions
 ```
 handleAnalytics(agent, conv, analyticsObject);
 ```
 
-
+## These POST options are required 
 ```
 accessToken
 voiceAppName		{ swr1 }
