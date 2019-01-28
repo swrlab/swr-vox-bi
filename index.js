@@ -10,14 +10,12 @@
 				https://twitter.com/FRYTG
 				https://github.com/FRYTG
 
-	UPDATED		January 2019
-
 */
 
 
 const request			= require('request');
 const yString			= require('ystring');
-const os	  		= require('os');
+const os	 		= require('os');
 const queryString		= require('query-string');
 const fetch			= require('node-fetch');
 const stationConfig		= require('./stationConfig');
@@ -108,6 +106,10 @@ const atiConfigBuild = {
 
 const alexaV1 = async function(req, res) {
 	try {
+		IS_DEV ? console.log('req.body',	req.body) : null
+		IS_DEV ? console.log('req.headers',	req.headers) : null
+		IS_DEV ? console.log('req.query',	req.query) : null
+
 		var p = req.body;
 
 		// Check POST request
@@ -206,7 +208,7 @@ const alexaV1 = async function(req, res) {
 		}
 
 		if(!p.deviceId || p.deviceId.length < 10) {
-			// logger("error", "alexaV1", "deviceId doesn\'t match requirements", {post: p});
+			logger("error", "alexaV1", "deviceId doesn\'t match requirements", {post: p});
 			res.status(400).json({
 				success: false,
 				status: 400,
@@ -399,8 +401,11 @@ const alexaV1 = async function(req, res) {
 
 const googleHomeV1 = async function(req, res) {
 	try {
-		var p = req.body;
+		IS_DEV ? console.log('req.body',	req.body) : null
+		IS_DEV ? console.log('req.headers',	req.headers) : null
+		IS_DEV ? console.log('req.query',	req.query) : null
 
+		var p = req.body;
 
 		// Check POST request
 		if(req.method !== 'POST') {
