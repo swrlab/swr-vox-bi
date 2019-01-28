@@ -1,5 +1,5 @@
 {
-	"name": "swr-voice-bi",
+	"name": "swr-vox-bi",
 	"version": "0.9.1",
 	"description": "Unified endpoint for Voice apps analytics requests",
 	"main": "index.js",

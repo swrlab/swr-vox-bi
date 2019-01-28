@@ -1,6 +1,6 @@
 /*
 
-	swr-bi
+	swr-vox-bi
 
 	GIT			https://github.com/frytg/swr-vox-bi
 
@@ -15,28 +15,28 @@
 */
 
 
-const request 				= require('request');
-const yString 				= require('ystring');
-const os 	  				= require('os');
-const queryString 			= require('query-string');
-const fetch 				= require('node-fetch');
+const request 			= require('request');
+const yString 			= require('ystring');
+const os 	  		= require('os');
+const queryString 		= require('query-string');
+const fetch 			= require('node-fetch');
 const stationConfig 		= require('./stationConfig');
 
-const IS_LOCAL				= (os.hostname().indexOf('.local') !== -1) ? true : false;
-const IS_DEV				= (process.env.STAGE == 'DEV') ? true : false;
+const IS_LOCAL			= (os.hostname().indexOf('.local') !== -1) ? true : false;
+const IS_DEV			= (process.env.STAGE == 'DEV') ? true : false;
 console.log({ IS_LOCAL }, { IS_DEV });
 
 global.serviceStage 		= IS_DEV ? 'dev' : 'prod';
-global.serviceName 			= stationConfig.serviceName;
+global.serviceName 		= stationConfig.serviceName;
 global.serviceNameCombined 	= 'gcf/' + global.serviceName;
-process.env.TZ 				= 'Europe/Amsterdam';
+process.env.TZ 			= 'Europe/Amsterdam';
 
 if(stationConfig.yLoggerInUse) {
 	const yLoggerConfig 	= require('./yLoggerConfig');
-	const yLogger 			= require('ylogger');
-	const logger 			= new yLogger(yLoggerConfig).log;
+	const yLogger 		= require('ylogger');
+	const logger 		= new yLogger(yLoggerConfig).log;
 } else {
-	const logger			= function(a, b, c, d) { console.log(a, b, c, d) }
+	const logger		= function(a, b, c, d) { console.log(a, b, c, d) }
 }
 
 const config = {
@@ -53,23 +53,23 @@ const atiConfigBuild = {
 		return {
 
 			/* whatever */		from: 	'p',
-			/* siteLevel1 */	s: 		config.ati.siteLevel1,
+			/* siteLevel1 */	s: 	config.ati.siteLevel1,
 			/* siteLevel2 */	s2: 	t.siteLevel2,
 			/* userId */		idclient: p.userId,
-			/* encoded path */	p: 		['Voice', ...t.path, ''].join('::'),
+			/* encoded path */	p: 	['Voice', ...t.path, ''].join('::'),
 			/* language */		lng: 	'de-DE',
 			/* ms-timestamp */	rn: 	Date.now(),
 
 
 			/* PAGEVIEW SPECIFIC */
 			/* contentId */		x1: 	t.contentId ? yString.upperCase(t.station) + '-' + p.intentName + '-' + yString.camelCase(t.contentId)
-										: yString.upperCase(t.station) + '-' + p.intentName,
+								: yString.upperCase(t.station) + '-' + p.intentName,
 			/* objectType */	x2: 	t.contentType,
 			/* page name */		x3: 	t.contentId ? 'Voice ' + p.intentName + ' / ' + t.contentId
-										: 'Voice ' + p.intentName,
+								: 'Voice ' + p.intentName,
 			/* portal */		x5: 	(t.deviceType == 'amazonAlexa') ? 'amazon.de'
-										: (t.deviceType == 'googleHome') ? 'google.de'
-										: 'SWR.de',
+								: (t.deviceType == 'googleHome') ? 'google.de'
+								: 'SWR.de',
 			/* extern */		x6: 	'ja',
 			/* mobile */		x7: 	'nein',
 			/* level2 again */	x8: 	t.siteLevel2,
@@ -82,20 +82,20 @@ const atiConfigBuild = {
 		return {
 
 			/* whatever */		from: 	'p',
-			/* siteLevel1 */	s: 		config.ati.siteLevel1,
+			/* siteLevel1 */	s: 	config.ati.siteLevel1,
 			/* siteLevel2 */	s2: 	t.siteLevel2,
 			/* userId */		idclient: p.userId,
-			/* encoded path */	p: 		[yString.camelCase('Voice ' + t.deviceType), ...t.path].join('::'),
+			/* encoded path */	p: 	[yString.camelCase('Voice ' + t.deviceType), ...t.path].join('::'),
 			/* language */		lng: 	'de-DE',
 			/* ms-timestamp */	rn: 	Date.now(),
 
 
 			/* MEDIA SPECIFIC */
 			action: t.mediaAction,		/* e.g. play/ pause/ refresh */
-			m1:		0,					/* content duration */
+			m1:	0,			/* content duration */
 			m5: 	'int',
-			m6:		t.broadcastType,		/* live/ clip */
-			type: 	t.mediaType,			/* audio/ video */
+			m6:	t.broadcastType,	/* live/ clip */
+			type: 	t.mediaType,		/* audio/ video */
 
 
 		};
@@ -206,7 +206,7 @@ const alexaV1 = async function(req, res) {
 		}
 
 		if(!p.deviceId || p.deviceId.length < 10) {
-			logger("error", "alexaV1", "deviceId doesn\'t match requirements", {post: p});
+			// logger("error", "alexaV1", "deviceId doesn\'t match requirements", {post: p});
 			res.status(400).json({
 				success: false,
 				status: 400,
