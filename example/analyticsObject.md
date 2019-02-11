@@ -31,7 +31,7 @@ for (key in request.body.queryResult.parameters) {
 }
 
 // Only replacing parameter mapping if array larger than 0, otherwise 'none'
-analyticsObject.intentSlots			= intentSlotsTemp.length > 0 ? intentSlotsTemp.join('/ ')	: 'none'
+analyticsObject.intentSlots		= intentSlotsTemp.length > 0 ? intentSlotsTemp.join('/ ')	: 'none'
 analyticsObject.intentSlotsFilled 	= analyticsObject.intentSlotsFilled == null ? false 		: true
 ```
 

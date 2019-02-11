@@ -1,5 +1,3 @@
-### 🚧 DEVELOPMENT STILL IN PROGRESS! ⚠️
-
 # SWR VOX BI Connector
 ## ATI Mapping for Alexa and Google Home
 
