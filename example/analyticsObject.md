@@ -35,10 +35,19 @@ analyticsObject.intentSlots			= intentSlotsTemp.length > 0 ? intentSlotsTemp.joi
 analyticsObject.intentSlotsFilled 	= analyticsObject.intentSlotsFilled == null ? false 		: true
 ```
 
-## Then hand over `analyticsObject` to `handleAnalytics` which makes a POST request to cloudfunctions
+## How to send handleAnalytics
+Import handler
+```
+const handleAnalytics = require('./utils/handleAnalytics')
+```
+
+Then hand over `analyticsObject` to `handleAnalytics` handler which makes a POST request to Google Cloud Functions (this project `swr-vox-bi`)
 ```
 handleAnalytics(agent, conv, analyticsObject);
 ```
+
+[View handleAnalytics.js Demo Script](handleAnalytics.js)  
+Note: You'll need something like `stationConfig` or a similar config to set `analyticsUrl`.
 
 ## These POST options are required
 ```

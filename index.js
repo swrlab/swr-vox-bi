@@ -2,39 +2,37 @@
 
 	swr-vox-bi
 
-	GIT			https://github.com/frytg/swr-vox-bi
-
-	DEBUG		-> README.md
+	GIT		https://github.com/frytg/swr-vox-bi
 
 	AUTHOR		Daniel Freytag
-				https://twitter.com/FRYTG
-				https://github.com/FRYTG
+			https://twitter.com/FRYTG
+			https://github.com/FRYTG
 
 */
 
 
-const request			= require('request');
-const yString			= require('ystring');
-const os	 		= require('os');
-const queryString		= require('query-string');
-const fetch			= require('node-fetch');
-const stationConfig		= require('./stationConfig');
+const request				= require('request')
+const yString				= require('ystring')
+const os				= require('os')
+const queryString			= require('query-string')
+const fetch				= require('node-fetch')
+const stationConfig			= require('./stationConfig')
 
-const IS_LOCAL			= (os.hostname().indexOf('.local') !== -1) ? true : false;
-const IS_DEV			= (process.env.STAGE == 'DEV') ? true : false;
+const IS_LOCAL				= (os.hostname().indexOf('.local') !== -1) ? true : false;
+const IS_DEV				= (process.env.STAGE == 'DEV') ? true : false;
 console.log({ IS_LOCAL }, { IS_DEV });
 
-global.serviceStage		= IS_DEV ? 'dev' : 'prod';
-global.serviceName		= stationConfig.serviceName;
-global.serviceNameCombined	= 'gcf/' + global.serviceName;
-process.env.TZ			= 'Europe/Amsterdam';
+global.serviceStage			= IS_DEV ? 'dev' : 'prod';
+global.serviceName			= stationConfig.serviceName;
+global.serviceNameCombined		= 'gcf/' + global.serviceName;
+process.env.TZ				= 'Europe/Amsterdam';
 
 if(stationConfig.yLoggerInUse) {
-	const yLoggerConfig	= require('./yLoggerConfig');
-	const yLogger		= require('ylogger');
-	const logger		= new yLogger(yLoggerConfig).log;
+	const yLoggerConfig		= require('./yLoggerConfig');
+	const yLogger			= require('ylogger');
+	const logger			= new yLogger(yLoggerConfig).log;
 } else {
-	const yLogger		= function(a, b, c, d) { console.log(a, b, c, d) }
+	const yLogger			= function(a, b, c, d) { console.log(a, b, c, d) }
 }
 
 const config = {
