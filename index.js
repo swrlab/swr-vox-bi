@@ -77,7 +77,7 @@ const atiConfigBuild = {
 	media: function(p, t) {
 		return {
 
-			/* whatever */		from: 	'p',
+			/* page */		from: 	'p',
 			/* siteLevel1 */	s: 	config.ati.siteLevel1,
 			/* siteLevel2 */	s2: 	t.siteLevel2,
 			/* userId */		idclient: p.userId,
@@ -87,11 +87,11 @@ const atiConfigBuild = {
 
 
 			/* MEDIA SPECIFIC */
-			action: t.mediaAction,		/* e.g. play/ pause/ refresh */
-			m1:	0,			/* content duration */
-			m5: 	'int',
-			m6:	t.broadcastType,	/* live/ clip */
-			type: 	t.mediaType,		/* audio/ video */
+			/* e.g. play */		action:	t.mediaAction,
+			/* content duration */	m1:	0,
+						m5: 	'int',
+			/* live/ clip */	m6:	t.broadcastType,
+			/* audio/ video */	type: 	t.mediaType,
 
 
 		};
@@ -154,18 +154,18 @@ const alexaV1 = async function(req, res) {
 		if((p.voiceAppRegion == null)) {
 			// Do nothing
 		} else if(!((yString.lowerCase(p.voiceAppRegion) == 'bw') ||
-					(yString.lowerCase(p.voiceAppRegion) == 'rp') ||
-					(yString.lowerCase(p.voiceAppRegion) == 'ma') ||
-					(yString.lowerCase(p.voiceAppRegion) == 'hn') ||
-					(yString.lowerCase(p.voiceAppRegion) == 'ka') ||
-					(yString.lowerCase(p.voiceAppRegion) == 'tu') ||
-					(yString.lowerCase(p.voiceAppRegion) == 'ul') ||
-					(yString.lowerCase(p.voiceAppRegion) == 'fr') ||
-					(yString.lowerCase(p.voiceAppRegion) == 'fn') ||
-					(yString.lowerCase(p.voiceAppRegion) == 'ko') ||
-					(yString.lowerCase(p.voiceAppRegion) == 'tr') ||
-					(yString.lowerCase(p.voiceAppRegion) == 'kl') ||
-			 		(yString.lowerCase(p.voiceAppRegion) == 'lu'))) {
+				(yString.lowerCase(p.voiceAppRegion) == 'rp') ||
+				(yString.lowerCase(p.voiceAppRegion) == 'ma') ||
+				(yString.lowerCase(p.voiceAppRegion) == 'hn') ||
+				(yString.lowerCase(p.voiceAppRegion) == 'ka') ||
+				(yString.lowerCase(p.voiceAppRegion) == 'tu') ||
+				(yString.lowerCase(p.voiceAppRegion) == 'ul') ||
+				(yString.lowerCase(p.voiceAppRegion) == 'fr') ||
+				(yString.lowerCase(p.voiceAppRegion) == 'fn') ||
+				(yString.lowerCase(p.voiceAppRegion) == 'ko') ||
+				(yString.lowerCase(p.voiceAppRegion) == 'tr') ||
+				(yString.lowerCase(p.voiceAppRegion) == 'kl') ||
+		 		(yString.lowerCase(p.voiceAppRegion) == 'lu'))) {
 			logger("error", "alexaV1", "voiceAppRegion doesn\'t match requirements", {post: p});
 			res.status(400).json({
 				success: false,
@@ -267,13 +267,13 @@ const alexaV1 = async function(req, res) {
 
 		t.deviceType 	= 'amazonAlexa';
 
-		t.station		= p.voiceAppRegion ? yString.lowerCase(p.voiceAppName + '-' + p.voiceAppRegion) : yString.lowerCase(p.voiceAppName);
+		t.station	= p.voiceAppRegion ? yString.lowerCase(p.voiceAppName + '-' + p.voiceAppRegion) : yString.lowerCase(p.voiceAppName);
 
 		t.siteLevel2	= config.ati.siteLevel2[t.station];
 
-		t.userAgent	= 	  (t.deviceType == 'amazonAlexa') ? yString.upperCase(t.station) + ' Voice Amazon Alexa'
-						: (t.deviceType == 'googleHome') ? yString.upperCase(t.station) + ' Voice Google Home'
-						: yString.upperCase(t.station) + ' Voice Unkown Device';
+		t.userAgent	= (t.deviceType == 'amazonAlexa') ? yString.upperCase(t.station) + ' Voice Amazon Alexa'
+					: (t.deviceType == 'googleHome') ? yString.upperCase(t.station) + ' Voice Google Home'
+					: yString.upperCase(t.station) + ' Voice Unkown Device';
 
 		t.trackingType = 'pageview';
 
@@ -281,10 +281,10 @@ const alexaV1 = async function(req, res) {
 		// Analyse intentType
 		if(p.intentType == 'LaunchRequest') {
 			// User launched Skill
-			p.intentName	= 'LaunchRequest';
+			p.intentName		= 'LaunchRequest';
 			t.pageName		= t.station + ' ' + p.intentName;
 			t.path			= [p.intentType];
-			t.contentType	= 'Übersichtsseite';
+			t.contentType		= 'Übersichtsseite';
 			t.contentId		= '';
 
 		} else if(p.intentType == 'IntentRequest') {
@@ -294,29 +294,29 @@ const alexaV1 = async function(req, res) {
 				t.trackingType = 'media';
 
 				t.path			= [p.intentName, yString.camelCase(p.intentSlots)];
-				t.contentType	= 'Audio';
+				t.contentType		= 'Audio';
 				t.contentId		= p.intentSlots;
 
 			} else if(p.intentSlotsFilled) {
 				// All information are available
 				t.path			= [p.intentName, yString.camelCase(p.intentSlots)];
-				t.contentType	= 'Sonstiges';
+				t.contentType		= 'Sonstiges';
 				t.contentId		= p.intentSlots;
 
 			} else {
 				// Do not track for now
 				t.path			= [p.intentName, "SLOTS_UNFULFILLED"];
-				t.contentType	= 'Sonstiges';
+				t.contentType		= 'Sonstiges';
 				t.contentId		= null;
 			}
 
 
 		} else if(p.intentType.indexOf('AudioPlayer.') !== -1) {
 			// Audioplayer Action
-			t.trackingType = 'media';
+			t.trackingType		= 'media';
 
-			t.path		= [];
-			t.contentType	= 'Audio';
+			t.path			= [];
+			t.contentType		= 'Audio';
 			t.contentId		= '';
 
 		} else {
@@ -651,15 +651,15 @@ const googleHomeV1 = async function(req, res) {
 if(os.hostname().indexOf('.local') !== -1) {
 	console.log('Running in Local mode');
 
-	var bodyParser 				= require('body-parser');
-	var express 				= require('express');
-	var app 					= express();
+	var bodyParser 			= require('body-parser');
+	var express 			= require('express');
+	var app 			= express();
 
 	app.use(bodyParser.json());
 	app.set('json spaces', 2);
 
 	app.post('/swrBiAlexaV1',
-		function (req, res) { 	alexaV1(req, res); });
+		function (req, res) {	alexaV1(req, res); });
 
 	app.post('/swrBiGoogleHomeV1',
 		function (req, res) { 	googleHomeV1(req, res); });
@@ -671,8 +671,8 @@ if(os.hostname().indexOf('.local') !== -1) {
 
 }
 
-exports.swrBiAlexaV1 		= (req, res) => { alexaV1(req, res); };
-exports.swrBiGoogleHomeV1 	= (req, res) => { googleHomeV1(req, res); };
+exports.swrBiAlexaV1 			= (req, res) => { alexaV1(req, res); };
+exports.swrBiGoogleHomeV1 		= (req, res) => { googleHomeV1(req, res); };
 
 
 
