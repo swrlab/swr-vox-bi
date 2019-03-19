@@ -38,7 +38,8 @@ if(stationConfig.yLoggerInUse) {
 const config = {
 	ati: {
 		baseUrl:	stationConfig.atiEndpoint, /* ATI ENDPOINT */
-		siteLevel1:	IS_DEV ? stationConfig.atiSiteLevel1.dev : stationConfig.atiSiteLevel1.prod, /* SITE ID */
+		siteLevel1:	process.env.ATI_STAGE == 'DEV' ? stationConfig.atiSiteLevel1.dev
+					: stationConfig.atiSiteLevel1.prod, /* SITE ID */
 		siteLevel2:	stationConfig.atiSiteLevel2
 	}
 };
@@ -538,6 +539,10 @@ const googleHomeV1 = async function(req, res) {
 			p.voiceAppName = 'swr-' + p.voiceAppName
 		}
 
+		if(p.voiceAppName == 'swraktuell') {
+			p.voiceAppName = 'swr-aktuell'
+		}
+
 
 
 		// Build request
@@ -546,12 +551,13 @@ const googleHomeV1 = async function(req, res) {
 		t.deviceType 	= 'googleHome';
 
 
-		t.station		= p.voiceAppRegion ? yString.lowerCase(p.voiceAppName + '-skill-' + p.voiceAppRegion) : yString.lowerCase(p.voiceAppName) + '-skill';
+		t.station	= p.voiceAppRegion ? yString.lowerCase(p.voiceAppName + '-skill-' + p.voiceAppRegion)
+					: yString.lowerCase(p.voiceAppName) + '-skill';
 
 		t.siteLevel2	= config.ati.siteLevel2[t.station];
 
-		t.userAgent	= 	  (t.deviceType == 'amazonAlexa') ? yString.upperCase(t.station) + ' Voice Amazon Alexa'
-						: (t.deviceType == 'googleHome') ? yString.upperCase(t.station) + ' Voice Google Home'
+		t.userAgent	= (t.deviceType == 'amazonAlexa') ? yString.upperCase(t.station) + ' Voice Amazon Alexa'
+					: (t.deviceType == 'googleHome') ? yString.upperCase(t.station) + ' Voice Google Home'
 						: yString.upperCase(t.station) + ' Voice Unbekanntes Gerät';
 
 		t.trackingType = 'pageview';
