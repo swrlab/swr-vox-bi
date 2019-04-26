@@ -32,7 +32,7 @@ if(stationConfig.yLoggerInUse) {
 	const yLogger			= require('ylogger');
 	const logger			= new yLogger(yLoggerConfig).log;
 } else {
-	const yLogger			= function(a, b, c, d) { console.log(a, b, c, d) }
+	const logger			= function(a, b, c, d) { console.warn(a, b, c, d) }
 }
 
 const config = {
@@ -362,24 +362,20 @@ const alexaV1 = async function(req, res) {
 		};
 
 		if(IS_DEV) {
-			console.log({ p });
-			console.log({ t });
-			console.log({ a });
+			console.log({ p })
+			console.log({ t })
+			console.log({ a })
 		}
 
 
 		if(a.s2 && t.trackingType == 'pageview') {
-			console.log('Now pushing to ATI…');
-			fetch(t.atiUrl, t.atiOptions).catch(error => {
-				console.error('fetchError', error);
-				logger("error", "alexaV1", "fetchError", {error: error, t: t});
-			});
+			var fetchThis	= await fetch(t.atiUrl, t.atiOptions)
+			var fetchText	= await fetchThis.text()
+
 		} else if(a.s2 && t.trackingType == 'media') {
-			console.log('t.trackingType', t.trackingType, 'not pushing to ATI');
+			console.log('t.trackingType', t.trackingType, 'not pushing to ATI')
 		}
 
-
-		console.log('ATI Status 200. Goodbye.');
 		res.status(200).json({
 			success: true,
 			status: 200,
@@ -387,11 +383,12 @@ const alexaV1 = async function(req, res) {
 			ati: p.showAti ? a : null,
 			post: p,
 			this: p.showAti ? t : null
-		});
-		return;
+		})
+		return
 
 	} catch (err) {
-		logger("error", "alexaV1", "general error", {error: err});
+		logger("error", "alexaV1", "general error", {error: err})
+		res.sendStatus(500)
 
 	}
 }
@@ -608,34 +605,32 @@ const googleHomeV1 = async function(req, res) {
 			}
 		}
 
-		var a = atiConfigBuild[t.trackingType](p, t);
+		var a = atiConfigBuild[t.trackingType](p, t)
 
-		t.params = queryString.stringify(a, { sort: false } );
-		t.atiUrl = config.ati.baseUrl + '?' + t.params;
-		t.userAgent = t.deviceType + '/' + p.voiceAppVersion + ' (' + p.voiceAppName + '; ' + p.voiceAppRegion + ')';
+		t.params = queryString.stringify(a, { sort: false } )
+		t.atiUrl = config.ati.baseUrl + '?' + t.params
+		t.userAgent = t.deviceType + '/' + p.voiceAppVersion + ' (' + p.voiceAppName + '; ' + p.voiceAppRegion + ')'
 		t.atiOptions = {
 			headers: {
 				'user-agent': t.userAgent
 			}
-		};
+		}
 
-		console.log({ p });
-		console.log({ t });
-		console.log({ a });
+		if(IS_DEV) {
+			console.log({ p })
+			console.log({ t })
+			console.log({ a })
+		}
 
 
 		if(a.s2 && t.trackingType == 'pageview') {
-			console.log('Now pushing to ATI…');
-
 			var fetchThis	= await fetch(t.atiUrl, t.atiOptions)
 			var fetchText	= await fetchThis.text()
 
 		} else if(a.s2 && t.trackingType == 'media') {
-			console.warn('t.trackingType', t.trackingType);
+			console.warn('t.trackingType', t.trackingType)
 		}
 
-
-		console.log('ATI Status 200. Goodbye.');
 		res.status(200).json({
 			success: true,
 			status: 200,
@@ -643,11 +638,12 @@ const googleHomeV1 = async function(req, res) {
 			ati: p.showAti ? a : null,
 			post: p,
 			this: p.showAti ? t : null
-		});
-		return;
+		})
+		return
 
 	} catch (err) {
-		logger("error", "googleHomeV1", "general error", {error: err});
+		logger("error", "googleHomeV1", "general error", {error: err})
+		res.sendStatus(500)
 
 	}
 }

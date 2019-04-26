@@ -24,6 +24,8 @@ module.exports = {
 		/* ... */
 	},
 
+	yLoggerInUse:			false,
+	
 	alexaV1token:			'SOMETHING_LONG_AND_CRYPTIC',
 	googleHomeV1token:		'ALSO_SOMETHING_LONG_AND_CRYPTIC',
 
