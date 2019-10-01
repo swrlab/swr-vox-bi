@@ -23,7 +23,7 @@
 		"dateformat": "3.0.3",
 		"express": "4.16.3",
 		"query-string": "6.2.0",
-		"node-fetch": "2.2.0",
+		"node-fetch": "2.6.0",
 		"ylogger": ">=1.0.0"
 	}
 }
