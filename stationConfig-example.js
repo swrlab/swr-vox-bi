@@ -10,7 +10,7 @@
 */
 
 module.exports = {
-	serviceName:			'swr-bi',
+	serviceName:			'swr-vox-bi',
 
 	atiEndpoint:			'https://YOUR_URL.xiti.com/hit.xiti',
 
@@ -25,7 +25,7 @@ module.exports = {
 	},
 
 	yLoggerInUse:			false,
-	
+
 	alexaV1token:			'SOMETHING_LONG_AND_CRYPTIC',
 	googleHomeV1token:		'ALSO_SOMETHING_LONG_AND_CRYPTIC',
 

@@ -16,21 +16,24 @@ const yString				= require('ystring')
 const os				= require('os')
 const queryString			= require('query-string')
 const fetch				= require('node-fetch')
-const stationConfig			= require('./stationConfig')
 
-const IS_LOCAL				= (os.hostname().indexOf('.local') !== -1) ? true : false;
-const IS_DEV				= (process.env.STAGE == 'DEV') ? true : false;
-console.log({ IS_LOCAL }, { IS_DEV });
+const IS_LOCAL				= (os.hostname().indexOf('.local') !== -1) ? true : false
+const IS_DEV				= (process.env.STAGE == 'DEV') ? true : false
+const IS_TEST				= (process.env.TEST == 'GITHUB') ? true : false
+console.log({ IS_LOCAL }, { IS_DEV }, { IS_TEST })
 
-global.serviceStage			= IS_DEV ? 'dev' : 'prod';
-global.serviceName			= stationConfig.serviceName;
-global.serviceNameCombined		= 'gcf/' + global.serviceName;
-process.env.TZ				= 'Europe/Amsterdam';
+const stationConfig			= IS_TEST ? require('./stationConfig-example') : require('./stationConfig')
+
+
+global.serviceStage			= IS_DEV ? 'dev' : 'prod'
+global.serviceName			= stationConfig.serviceName
+global.serviceNameCombined		= 'gcf/' + global.serviceName
+process.env.TZ				= 'Europe/Amsterdam'
 
 if(stationConfig.yLoggerInUse) {
-	const yLoggerConfig		= require('./yLoggerConfig');
-	const yLogger			= require('ylogger');
-	const logger			= new yLogger(yLoggerConfig).log;
+	const yLoggerConfig		= require('./yLoggerConfig')
+	const yLogger			= require('ylogger')
+	const logger			= new yLogger(yLoggerConfig).log
 } else {
 	const logger			= function(a, b, c, d) { console.warn(a, b, c, d) }
 }
