@@ -24,6 +24,6 @@
 		"express": "4.17.1",
 		"query-string": "6.8.3",
 		"node-fetch": "2.6.0",
-		"ylogger": ">=1.0.0"
+		"ylogger": ">=1.5.2"
 	}
 }
