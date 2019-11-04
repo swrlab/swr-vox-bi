@@ -10,13 +10,12 @@
 	},
 	"homepage": "https://github.com/swrlab/swr-vox-bi",
 	"scripts": {
-		"alexa": "gcloud beta functions deploy swrBiAlexaV1 --env-vars-file stationConfig.yaml --project swr-lab --timeout 11 --memory 256MB --runtime nodejs8 --trigger-http --region europe-west1",
-		"google": "gcloud beta functions deploy swrBiGoogleHomeV1 --env-vars-file stationConfig.yaml --project swr-lab --timeout 11 --memory 256MB --runtime nodejs8 --trigger-http --region europe-west1"
+		"alexa": "gcloud beta functions deploy swrBiAlexaV1 --env-vars-file stationConfig.yaml --project swr-lab --timeout 11 --memory 256MB --runtime nodejs10 --trigger-http --region europe-west1",
+		"google": "gcloud beta functions deploy swrBiGoogleHomeV1 --env-vars-file stationConfig.yaml --project swr-lab --timeout 11 --memory 256MB --runtime nodejs10 --trigger-http --region europe-west1"
 	},
 	"license": "MIT",
 	"private": true,
 	"dependencies": {
-		"request": "2.88.0",
 		"ystring": "^0.9.5",
 		"os": "0.1.1",
 		"body-parser": "1.19.0",
@@ -24,6 +23,6 @@
 		"express": "4.17.1",
 		"query-string": "6.8.3",
 		"node-fetch": "2.6.0",
-		"ylogger": ">=1.0.0"
+		"ylogger": ">=1.6.0"
 	}
 }

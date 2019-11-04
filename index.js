@@ -11,7 +11,6 @@
 */
 
 
-const request				= require('request')
 const yString				= require('ystring')
 const os				= require('os')
 const queryString			= require('query-string')
