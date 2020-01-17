@@ -21,7 +21,7 @@
 		"body-parser": "1.19.0",
 		"dateformat": "3.0.3",
 		"express": "4.17.1",
-		"query-string": "6.9.0",
+		"query-string": "6.10.1",
 		"node-fetch": "2.6.0",
 		"moment": "2.24.0",
 		"ylogger": ">=1.6.0"
