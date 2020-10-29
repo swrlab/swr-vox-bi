@@ -24,6 +24,6 @@
 		"query-string": "6.12.0",
 		"node-fetch": "2.6.0",
 		"moment": "2.24.0",
-		"ylogger": ">=1.7.0"
+		"ylogger": ">=2.1.9"
 	}
 }
