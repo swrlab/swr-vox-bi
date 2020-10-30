@@ -6,15 +6,16 @@
 			https://twitter.com/FRYTG
 			https://github.com/FRYTG
 
+
 */
 
 module.exports = {
 	yPushInUse: false,
-	yPushUrl: 'https://SOMETHING',
-	yPushToken: 'SOMETHING',
+	yPushUrl: null,
+	yPushToken: null,
 
-	loggingProjectID: 'SOMETHING',
-	loggingKeyFilename: './keys/SOMETHING.json',
+	loggingProjectID: 'swr-lab',
+	loggingKeyFilename: './keys/swr-lab.json',
 	serviceName: global.serviceNameCombined,
 	serviceStage: global.serviceStage,
 };

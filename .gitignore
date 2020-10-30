@@ -9,7 +9,6 @@ yarn-error.log*
 stationConfig.js
 stationConfig.yaml
 stationConfig.js
-yLoggerConfig.js
 keys/*
 
 # Runtime data

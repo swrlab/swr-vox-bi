@@ -1,6 +1,6 @@
 {
 	"name": "swr-vox-bi",
-	"version": "0.9.3",
+	"version": "1.0.0-a1",
 	"description": "Unified endpoint for Voice apps analytics requests",
 	"main": "index.js",
 	"author": "Daniel Freytag",
@@ -10,8 +10,10 @@
 	},
 	"homepage": "https://github.com/swrlab/swr-vox-bi",
 	"scripts": {
-		"alexa": "gcloud functions deploy swrBiAlexaV1 --env-vars-file stationConfig.yaml --project swr-lab --timeout 3 --memory 256MB --runtime nodejs10 --trigger-http --region europe-west1",
-		"google": "gcloud functions deploy swrBiGoogleHomeV1 --env-vars-file stationConfig.yaml --project swr-lab --timeout 3 --memory 256MB --runtime nodejs10 --trigger-http --region europe-west1"
+		"local": "nodemon index.js",
+		"cloud": "node index.js",
+		"test": "IS_GITHUB=true IS_DEV=true node index.js",
+		"reinstall": "rm -rf node_modules && rm yarn.lock && yarn"
 	},
 	"license": "MIT",
 	"private": true,
@@ -21,9 +23,16 @@
 		"body-parser": "1.19.0",
 		"dateformat": "3.0.3",
 		"express": "4.17.1",
-		"query-string": "6.12.0",
-		"node-fetch": "2.6.0",
-		"moment": "2.24.0",
-		"ylogger": ">=1.7.0"
-	}
+		"query-string": "6.13.6",
+		"node-fetch": "2.6.1",
+		"moment": "2.29.1",
+		"ylogger": "2.1.9"
+	},
+	"devDependencies": {
+		"@swrlab/swr-prettier-config": "0.0.2",
+		"eslint": "7.12.1",
+		"eslint-plugin-swr": "0.0.5",
+		"nodemon": "2.0.6"
+	},
+	"prettier": "@swrlab/swr-prettier-config"
 }

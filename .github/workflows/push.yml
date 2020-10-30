@@ -1,0 +1,83 @@
+name: Build Container
+
+on:
+  push:
+    branches:
+    - main
+    - dev/*
+    - feature/*
+
+
+env:
+  IMAGE_NAME: swr-vox-bi
+  GCP_PROJECT_ID: swr-lab
+  GCP_REGISTRY_REGION: eu.gcr.io
+
+
+jobs:
+  test-node:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-node@v2.1.2
+      with:
+        node-version: 14.11
+
+    - name: Checkout repo 👀
+      uses: actions/checkout@v2.3.3
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Run index
+      run: npm run test
+  
+
+  docker:
+    runs-on: ubuntu-latest
+    outputs:
+      BRANCH: ${{ steps.push.outputs.BRANCH }}
+      VERSION: ${{ steps.push.outputs.VERSION }}
+    steps:
+    - name: Checkout repo 👀
+      uses: actions/checkout@v2.3.3
+
+    - name: 🔐 Write swr-lab login
+      run: echo '${{ secrets.KEYS__SWR_VOX_BI }}' > ./keys/swr-lab.json
+    
+    - name: 🔐 Write stationConfig
+      run: echo '${{ secrets.KEYS__STATION_CONFIG }}' > ./stationConfig.js
+      
+    - name: Setup Google Cloud Auth 🔑
+      uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      with:
+        service_account_email: ${{ secrets.GCP_IAM_LAB_EMAIL }}
+        service_account_key: ${{ secrets.GCP_IAM_LAB_KEY }}
+        
+    - name: Login to Registry 🔑
+      run: "gcloud auth configure-docker"
+      
+    - name: 🚧 Building docker image
+      run: "docker build ./ --file ./Dockerfile -t image"
+
+    - name: 🏷 Tagging & Pushing docker
+      id: push
+      run: |
+        # Strip git ref prefix from version
+        BRANCH=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')  
+
+        # Strip "v" prefix from tag name
+        [[ "${{ github.ref }}" == "refs/tags/"* ]] && BRANCH=$(echo $BRANCH | sed -e 's/^v//')
+        
+        # Add custom wrapper syntax
+        VERSION=git-run${{ github.run_number }}-day$(date +%j)-$BRANCH-${{ github.actor }}-$GITHUB_SHA
+
+        # Push image to registry
+        docker tag image $GCP_REGISTRY_REGION/$GCP_PROJECT_ID/$IMAGE_NAME:$VERSION
+        docker push $GCP_REGISTRY_REGION/$GCP_PROJECT_ID/$IMAGE_NAME:$VERSION
+
+        # Update var
+        echo "::set-output name=BRANCH::$BRANCH"
+        echo "::set-output name=VERSION::$VERSION"
+        
+    - name: 👋 Logout
+      run: "docker logout"
