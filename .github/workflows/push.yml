@@ -28,11 +28,18 @@ jobs:
     - name: Install Dependencies
       run: npm install
 
+    - name: 🔐 Write swr-lab login
+      run: echo '${{ secrets.KEYS__SWR_VOX_BI }}' > ./keys/swr-lab.json
+    
+    - name: 🔐 Write stationConfig
+      run: echo '${{ secrets.KEYS__STATION_CONFIG }}' > ./stationConfig.js
+
     - name: Run index
       run: npm run test
   
 
   docker:
+    needs: test-node
     runs-on: ubuntu-latest
     outputs:
       BRANCH: ${{ steps.push.outputs.BRANCH }}

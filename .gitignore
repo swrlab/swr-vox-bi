@@ -9,7 +9,6 @@ yarn-error.log*
 stationConfig.js
 stationConfig.yaml
 stationConfig.js
-keys/*
 
 # Runtime data
 pids
