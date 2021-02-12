@@ -26,7 +26,7 @@
 		"query-string": "6.13.6",
 		"node-fetch": "2.6.1",
 		"moment": "2.29.1",
-		"ylogger": "2.1.9"
+		"ylogger": "2.2.1"
 	},
 	"devDependencies": {
 		"@swrlab/swr-prettier-config": "0.0.2",
