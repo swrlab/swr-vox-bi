@@ -30,7 +30,7 @@
 	},
 	"devDependencies": {
 		"@swrlab/swr-prettier-config": "0.0.2",
-		"eslint": "7.12.1",
+		"eslint": "7.21.0",
 		"eslint-plugin-swr": "0.0.5",
 		"nodemon": "2.0.6"
 	},
