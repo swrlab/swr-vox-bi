@@ -32,7 +32,7 @@
 		"@swrlab/swr-prettier-config": "0.0.2",
 		"eslint": "7.12.1",
 		"eslint-plugin-swr": "0.0.5",
-		"nodemon": "2.0.6"
+		"nodemon": "2.0.10"
 	},
 	"prettier": "@swrlab/swr-prettier-config"
 }
